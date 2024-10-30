@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: postgres
+  password: pg1234
+
+development:
+  <<: *default
+  database: pisano_survey_app_development
+
+test:
+  <<: *default
+  database: pisano_survey_app_test
+
+production:
+  <<: *default
+  database: pisano_survey_app_production
