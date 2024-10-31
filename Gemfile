@@ -54,3 +54,15 @@ group :development do
   # gem "spring"
 end
 
+gem 'devise'
+gem 'cancancan' # Yetkilendirme için
+gem 'ostruct'  # Ruby 3.5 uyarısını gidermek için
+gem 'logger'   # Ruby 3.5 uyarısını gidermek için
+
+gem 'importmap-rails'
+gem 'turbo-rails'
+gem 'stimulus-rails'
+
+gem 'wdm', '>= 0.1.0' if Gem.win_platform?
+gem 'reline'
+
