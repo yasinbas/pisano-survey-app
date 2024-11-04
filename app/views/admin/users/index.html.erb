@@ -1,0 +1,121 @@
+<div class="admin-users">
+  <div class="header">
+    <h1>Kullanıcı Yönetimi</h1>
+    <%= link_to 'Yeni Kullanıcı', new_admin_user_path, class: 'btn btn-primary' %>
+  </div>
+
+  <div class="filters">
+    <%= form_tag admin_users_path, method: :get, class: 'filter-form' do %>
+      <div class="form-group">
+        <%= text_field_tag :search, params[:search], placeholder: 'Email veya isim ara...', class: 'form-control' %>
+      </div>
+      
+      <div class="form-group">
+        <%= select_tag :role, 
+            options_for_select(User.roles.keys, params[:role]), 
+            prompt: 'Rol seç', 
+            class: 'form-control' %>
+      </div>
+      
+      <%= submit_tag 'Filtrele', class: 'btn btn-secondary' %>
+    <% end %>
+  </div>
+
+  <div class="users-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Durum</th>
+          <th>Anket Sayısı</th>
+          <th>Son Giriş</th>
+          <th>İşlemler</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.email %></td>
+            <td><%= user.role %></td>
+            <td><%= user.active? ? 'Aktif' : 'Pasif' %></td>
+            <td><%= user.surveys.count %></td>
+            <td><%= user.last_sign_in_at&.strftime('%d/%m/%Y %H:%M') %></td>
+            <td class="actions">
+              <%= link_to 'Görüntüle', admin_user_path(user), class: 'btn btn-sm btn-info' %>
+              <%= link_to 'Düzenle', edit_admin_user_path(user), class: 'btn btn-sm btn-warning' %>
+              <% if user.active? %>
+                <%= button_to 'Deaktif Et', deactivate_admin_user_path(user), method: :patch, class: 'btn btn-sm btn-danger' %>
+              <% else %>
+                <%= button_to 'Aktif Et', activate_admin_user_path(user), method: :patch, class: 'btn btn-sm btn-success' %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    <%= paginate @users %>
+  </div>
+</div>
+
+<% content_for :styles do %>
+  <style>
+    .admin-users {
+      padding: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .filters {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
+    .filter-form {
+      display: flex;
+      gap: 10px;
+    }
+
+    .users-table {
+      background: white;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: #f8f9fa;
+      font-weight: bold;
+    }
+
+    .actions {
+      display: flex;
+      gap: 5px;
+    }
+
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+  </style>
+<% end %> 

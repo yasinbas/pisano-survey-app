@@ -8,4 +8,24 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Survey.create(name: "Müşteri Deneyimi Anketi")
+puts "Creating admin user..."
+admin = User.create!(
+  email: 'admin@example.com',
+  password: 'password123',
+  password_confirmation: 'password123',
+  role: :admin,
+  active: true
+)
+puts "Admin user created: #{admin.email}"
+
+puts "Creating regular user..."
+user = User.create!(
+  email: 'user@example.com',
+  password: 'password123',
+  password_confirmation: 'password123',
+  role: :user,
+  active: true
+)
+puts "Regular user created: #{user.email}"
+
+puts "Users created successfully!"

@@ -1,6 +1,8 @@
 class HomeController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index]
-
   def index
+    if !user_signed_in?
+      @resource = User.new
+      @resource_name = :user
+    end
   end
 end

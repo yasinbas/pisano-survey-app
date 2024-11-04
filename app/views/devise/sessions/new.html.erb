@@ -1,31 +1,116 @@
-<div class="auth-container">
-  <div class="auth-box">
-    <h2>Hoş Geldiniz</h2>
+<div class="login-container">
+  <div class="login-box">
+    <h2>Giriş Yap</h2>
 
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "auth-form" }) do |f| %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="form-group">
-        <%= f.label :email, "E-posta Adresiniz" %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "ornek@email.com" %>
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
       </div>
 
       <div class="form-group">
-        <%= f.label :password, "Şifreniz" %>
-        <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "••••••" %>
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "current-password", class: 'form-control' %>
       </div>
 
       <% if devise_mapping.rememberable? %>
-        <div class="form-check">
+        <div class="form-group remember-me">
           <%= f.check_box :remember_me %>
-          <%= f.label :remember_me, "Beni Hatırla" %>
+          <%= f.label :remember_me %>
         </div>
       <% end %>
 
-      <%= f.submit "Giriş Yap", class: "btn btn-primary" %>
+      <div class="form-actions">
+        <%= f.submit "Giriş Yap", class: 'btn btn-primary' %>
+      </div>
     <% end %>
 
-    <div class="auth-links">
-      <%= link_to "Şifremi Unuttum", new_password_path(resource_name) %>
-      <%= link_to "Yeni Hesap Oluştur", new_registration_path(resource_name) %>
+    <div class="social-login">
+      <p>veya</p>
+      <%= button_to user_github_omniauth_authorize_path, data: { turbo: false }, class: "btn btn-github" do %>
+        <i class="fab fa-github"></i> GitHub ile Giriş Yap
+      <% end %>
     </div>
   </div>
 </div>
+
+<% content_for :styles do %>
+  <style>
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #f5f5f5;
+    }
+
+    .login-box {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: #007bff;
+      color: white;
+    }
+
+    .btn-github {
+      background: #333;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .social-login {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .auth-links {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .auth-links a {
+      display: block;
+      margin: 5px 0;
+      color: #666;
+      text-decoration: none;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  </style>
+<% end %>

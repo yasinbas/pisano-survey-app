@@ -1,0 +1,28 @@
+openapi: 3.0.1
+info:
+  title: Pisano Survey API
+  version: v1
+paths:
+  /api/v1/users:
+    get:
+      summary: Lists users
+      security:
+        - Bearer: []
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: Creates a user
+      security:
+        - Bearer: []
+      responses:
+        '201':
+          description: user created
+        '422':
+          description: invalid request
+components:
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 

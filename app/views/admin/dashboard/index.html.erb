@@ -1,35 +1,62 @@
-<h1>Admin Dashboard</h1>
+<div class="admin-dashboard">
+  <h1>Admin Paneli</h1>
 
-<div class="stats">
-  <h3>İstatistikler</h3>
-  <p>Toplam Kullanıcı: <%= User.count %></p>
-  <p>Toplam Hata Bildirimi: <%= ErrorReport.count %></p>
-  <p>Çözülmemiş Hatalar: <%= ErrorReport.where(resolved: false).count %></p>
-</div>
-
-<div class="user-management">
-  <h3>Kullanıcı Yönetimi</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Email</th>
-        <th>Rol</th>
-        <th>İşlemler</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% User.all.each do |user| %>
-        <tr>
-          <td><%= user.email %></td>
-          <td><%= user.role %></td>
-          <td>
-            <%= form_for [:admin, user] do |f| %>
-              <%= f.select :role, User.roles.keys %>
-              <%= f.submit 'Güncelle' %>
+  <div class="grid">
+    <div class="card">
+      <h2>Kullanıcı Yönetimi</h2>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Rol</th>
+              <th>Kayıt Tarihi</th>
+              <th>İşlemler</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td><%= user.email %></td>
+                <td><%= user.role %></td>
+                <td><%= user.created_at.strftime("%d/%m/%Y") %></td>
+                <td>
+                  <%= form_for [:admin, user] do |f| %>
+                    <%= f.select :role, User.roles.keys %>
+                    <%= f.submit 'Güncelle', class: 'btn btn-sm btn-primary' %>
+                  <% end %>
+                </td>
+              </tr>
             <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Hata Raporları</h2>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Başlık</th>
+              <th>Kullanıcı</th>
+              <th>Tarih</th>
+              <th>Durum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @error_reports.each do |report| %>
+              <tr>
+                <td><%= report.title %></td>
+                <td><%= report.user.email %></td>
+                <td><%= report.created_at.strftime("%d/%m/%Y") %></td>
+                <td><%= report.status %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div> 

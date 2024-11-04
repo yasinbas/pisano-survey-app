@@ -1,21 +1,120 @@
-<div class="container">
-  <h1>Hoş Geldiniz</h1>
-  
+<div class="home-container">
   <% if user_signed_in? %>
-    <div class="user-info">
-      <p>Merhaba, <%= current_user.email %></p>
-      <p>Rol: <%= current_user.role %></p>
-      
+    <div class="dashboard">
+      <h1>Hoş Geldiniz</h1>
+      <div class="user-info">
+        <p>Email: <%= current_user.email %></p>
+        <p>Rol: <%= current_user.role %></p>
+      </div>
       <%= button_to 'Çıkış Yap', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
-      
-      <% if current_user.admin? %>
-        <%= link_to 'Admin Paneli', admin_dashboard_path, class: 'btn btn-primary' %>
-      <% end %>
     </div>
   <% else %>
-    <div class="auth-links">
-      <%= link_to 'Giriş Yap', new_user_session_path, class: 'btn btn-primary' %>
-      <%= link_to 'Kayıt Ol', new_user_registration_path, class: 'btn btn-success' %>
+    <div class="login-section">
+      <h2>Giriş Yap</h2>
+      
+      <%= form_for(:user, url: user_session_path, html: { class: 'login-form' }) do |f| %>
+        <div class="form-group">
+          <%= f.label :email, 'E-posta' %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password, 'Şifre' %>
+          <%= f.password_field :password, autocomplete: "current-password", class: 'form-control' %>
+        </div>
+
+        <div class="form-group remember-me">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me, 'Beni Hatırla' %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.submit "Giriş Yap", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+
+      <div class="auth-links">
+        <%= link_to "Şifremi Unuttum", new_user_password_path, class: 'forgot-password' %>
+        <%= link_to "Kayıt Ol", new_user_registration_path, class: 'sign-up' %>
+      </div>
     </div>
   <% end %>
-</div> 
+</div>
+
+<% content_for :styles do %>
+  <style>
+    .login-section {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .login-form {
+      margin-top: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    .form-control:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .form-actions {
+      margin-top: 20px;
+    }
+
+    .auth-links {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .auth-links a {
+      display: block;
+      margin: 5px 0;
+      color: #666;
+      text-decoration: none;
+    }
+
+    .auth-links a:hover {
+      color: #007bff;
+    }
+
+    .forgot-password {
+      font-size: 14px;
+    }
+
+    .sign-up {
+      font-weight: bold;
+    }
+  </style>
+<% end %> 

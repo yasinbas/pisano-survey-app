@@ -13,6 +13,14 @@ end  belongs_to :question
     :content,
     :question_id,
     :_destroy
-  ]
+  ] 
+  
+  
+  def new
+
+
+    @survey = Survey.new
+    @survey.questions.build
+  end
 end
-    
+      

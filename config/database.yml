@@ -2,8 +2,10 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: postgres
-  password: pg1234
+  username: spy
+  password: spy
+  host: localhost # localhost'u belirtmek isteyebilirsiniz.
+  port: 5432
 
 development:
   <<: *default
