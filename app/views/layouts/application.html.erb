@@ -1,57 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PisanoSurveyApp</title>
+    <title>Survey App</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        background-color: #f5f5f5;
-      }
-
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-
-      .btn {
-        display: inline-block;
-        padding: 10px 20px;
-        border-radius: 4px;
-        text-decoration: none;
-        font-weight: bold;
-        cursor: pointer;
-        border: none;
-      }
-
-      .btn-primary {
-        background: #007bff;
-        color: white;
-      }
-
-      .btn-danger {
-        background: #dc3545;
-        color: white;
-      }
-
-      .dashboard {
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      }
-    </style>
-    <%= yield :styles %>
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_importmap_tags %>
   </head>
 
   <body>
     <div class="container">
+      <% if notice %>
+        <div class="alert alert-success"><%= notice %></div>
+      <% end %>
+      
+      <% if alert %>
+        <div class="alert alert-danger"><%= alert %></div>
+      <% end %>
+
       <%= yield %>
     </div>
   </body>

@@ -1,24 +1,69 @@
-# README
+# Pisano Survey App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Pisano Survey App, kullanıcıların anket oluşturmasına, yönetmesine ve sonuçları analiz etmesine olanak tanıyan bir web uygulamasıdır. Bu uygulama, Ruby on Rails çerçevesi kullanılarak geliştirilmiştir.
 
-Things you may want to cover:
+## Gereksinimler
 
-* Ruby version
+- **Ruby**: 3.3.5
+- **Rails**: 7.1.3.4
+- **PostgreSQL**: Veritabanı yönetimi için
 
-* System dependencies
+## Kurulum
 
-* Configuration
+1. **Depoyu Klonlayın**:
+   ```bash
+   git clone <repository-url>
+   cd pisano-survey-app
+   ```
 
-* Database creation
+2. **Gerekli Gem'leri Yükleyin**:
+   ```bash
+   bundle install
+   ```
 
-* Database initialization
+3. **Veritabanını Ayarlayın**:
+   Veritabanı yapılandırmasını `config/database.yml` dosyasında güncelleyin ve ardından:
+   ```bash
+   rails db:create
+   rails db:migrate
+   ```
 
-* How to run the test suite
+4. **Ortam Değişkenlerini Ayarlayın**:
+   `.env` dosyasını oluşturun ve gerekli API anahtarlarını ve gizli bilgileri ekleyin:
+   ```
+   GITHUB_CLIENT_ID=your_github_client_id
+   GITHUB_CLIENT_SECRET=your_github_client_secret
+   ```
 
-* Services (job queues, cache servers, search engines, etc.)
+5. **Sunucuyu Başlatın**:
+   ```bash
+   rails server
+   ```
 
-* Deployment instructions
+## Özellikler
 
-* ...
+- **Kullanıcı Kimlik Doğrulama**: Devise ve OmniAuth kullanılarak GitHub ile giriş yapma.
+- **Yetkilendirme**: CanCanCan ve Pundit ile rol tabanlı erişim kontrolü.
+- **Anket Yönetimi**: Anket oluşturma, düzenleme ve silme.
+- **API Desteği**: JSON formatında API endpoint'leri.
+- **Arka Plan İşlemleri**: Sidekiq ile arka plan işlerini yönetme.
+- **Performans ve Güvenlik**: Rack::Attack ile brute force koruması ve rate limiting.
+
+## Testler
+
+Testler RSpec kullanılarak yazılmıştır. Testleri çalıştırmak için:
+```bash
+bundle exec rspec
+```
+
+## Katkıda Bulunma
+
+1. Bu depoyu forklayın.
+2. Yeni bir dal oluşturun (`git checkout -b feature/your-feature`).
+3. Değişikliklerinizi commit edin (`git commit -am 'Add some feature'`).
+4. Dalınızı push edin (`git push origin feature/your-feature`).
+5. Bir Pull Request oluşturun.
+
+## Lisans
+
+Bu proje MIT Lisansı altında lisanslanmıştır. Daha fazla bilgi için `LICENSE` dosyasına bakın.

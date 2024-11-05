@@ -2,9 +2,17 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:github]
 
+  # Role enum'unu attribute olarak tanımla
+  attribute :role, :integer, default: 0
+
+  # Enum tanımlaması
   enum role: { user: 0, admin: 1 }
 
   has_many :surveys, dependent: :destroy
