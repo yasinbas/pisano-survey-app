@@ -12,7 +12,7 @@ Pisano Survey App, kullanıcıların anket oluşturmasına, yönetmesine ve sonu
 
 1. **Depoyu Klonlayın**:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/yasinbas/pisano-survey-app.git
    cd pisano-survey-app
    ```
 

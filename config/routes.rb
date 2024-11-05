@@ -1,9 +1,24 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
-    sessions: 'devise/sessions',
-    registrations: 'devise/registrations',
-    omniauth_callbacks: 'users/omniauth_callbacks'
-  }
-  
   root 'home#index'
+
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+
+  namespace :admin do
+    resources :users do
+      member do
+        patch :activate
+        patch :deactivate
+        patch :change_role
+      end
+    end
+    resources :surveys
+    resources :dashboard, only: [:index]
+  end
+
+  resources :surveys, only: [:show] do
+    member do
+      post :feedback
+    end
+  end
 end
+

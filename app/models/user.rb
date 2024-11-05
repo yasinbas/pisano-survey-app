@@ -15,11 +15,14 @@ class User < ApplicationRecord
   # Enum tanımlaması
   enum role: { user: 0, admin: 1 }
 
+  
+
   has_many :surveys, dependent: :destroy
   has_many :activity_logs, dependent: :nullify
 
   validates :email, presence: true, uniqueness: true
   validates :role, presence: true
+  has_secure_password
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

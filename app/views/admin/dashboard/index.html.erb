@@ -1,61 +1,67 @@
-<div class="admin-dashboard">
+<div class="admin-dashboard container mt-5">
   <h1>Admin Paneli</h1>
-
-  <div class="grid">
-    <div class="card">
-      <h2>Kullanıcı Yönetimi</h2>
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Email</th>
-              <th>Rol</th>
-              <th>Kayıt Tarihi</th>
-              <th>İşlemler</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @users.each do |user| %>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card mb-4">
+        <div class="card-header">
+          Kullanıcı Yönetimi
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
               <tr>
-                <td><%= user.email %></td>
-                <td><%= user.role %></td>
-                <td><%= user.created_at.strftime("%d/%m/%Y") %></td>
-                <td>
-                  <%= form_for [:admin, user] do |f| %>
-                    <%= f.select :role, User.roles.keys %>
-                    <%= f.submit 'Güncelle', class: 'btn btn-sm btn-primary' %>
-                  <% end %>
-                </td>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Kayıt Tarihi</th>
+                <th>İşlemler</th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <% @users.each do |user| %>
+                <tr>
+                  <td><%= user.email %></td>
+                  <td><%= user.role %></td>
+                  <td><%= user.created_at.strftime("%d/%m/%Y") %></td>
+                  <td>
+                    <%= form_for [:admin, user] do |f| %>
+                      <%= f.select :role, User.roles.keys, {}, class: 'form-select' %>
+                      <%= f.submit 'Güncelle', class: 'btn btn-sm btn-primary' %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-
-    <div class="card">
-      <h2>Hata Raporları</h2>
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Başlık</th>
-              <th>Kullanıcı</th>
-              <th>Tarih</th>
-              <th>Durum</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @error_reports.each do |report| %>
+    <div class="col-md-6">
+      <div class="card mb-4">
+        <div class="card-header">
+          Hata Raporları
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
               <tr>
-                <td><%= report.title %></td>
-                <td><%= report.user.email %></td>
-                <td><%= report.created_at.strftime("%d/%m/%Y") %></td>
-                <td><%= report.status %></td>
+                <th>Başlık</th>
+                <th>Kullanıcı</th>
+                <th>Tarih</th>
+                <th>Durum</th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <% @error_reports.each do |report| %>
+                <tr>
+                  <td><%= report.title %></td>
+                  <td><%= report.user.email %></td>
+                  <td><%= report.created_at.strftime("%d/%m/%Y") %></td>
+                  <td><%= report.status %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
